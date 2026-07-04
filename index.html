@@ -482,6 +482,7 @@
     .steps {
       counter-reset: step;
       display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
       margin-top: 28px;
     }
@@ -489,8 +490,10 @@
     .step {
       counter-increment: step;
       display: grid;
-      grid-template-columns: 64px 1fr;
+      grid-template-columns: 56px minmax(0, 1fr);
       gap: 18px;
+      align-items: start;
+      min-height: 148px;
       padding: 20px;
       background: var(--white);
       border: 1px solid var(--line);
@@ -508,7 +511,7 @@
     }
 
     .step h3 {
-      margin: 0 0 8px;
+      margin: 2px 0 8px;
       font-size: 25px;
     }
 
@@ -604,6 +607,10 @@
       }
 
       .method {
+        grid-template-columns: 1fr;
+      }
+
+      .steps {
         grid-template-columns: 1fr;
       }
     }
@@ -884,42 +891,36 @@
 
         <div class="steps">
           <article class="step">
-            <div></div>
             <div>
               <h3>先说清楚你已经知道什么</h3>
               <p>目标、约束、必须保留的行为、不要碰的范围、你当前的理解进度。</p>
             </div>
           </article>
           <article class="step">
-            <div></div>
             <div>
               <h3>主动暴露你知道自己不知道什么</h3>
               <p>把拿不准的接口、流程、设计偏好、上线条件列出来，不要假装已经确定。</p>
             </div>
           </article>
           <article class="step">
-            <div></div>
             <div>
               <h3>让模型找你没意识到的盲区</h3>
               <p>请它先做盲点排查，尤其是会改变架构、数据模型、用户体验或验收方式的问题。</p>
             </div>
           </article>
           <article class="step">
-            <div></div>
             <div>
               <h3>用原型和参考处理难以言说的标准</h3>
               <p>看了才知道的东西，先做低成本对比；能给源代码参考时，不要只给截图。</p>
             </div>
           </article>
           <article class="step">
-            <div></div>
             <div>
               <h3>执行中记录偏离和原因</h3>
               <p>遇到计划外边界时，记录“为什么改道、改成什么、剩余风险是什么”。</p>
             </div>
           </article>
           <article class="step">
-            <div></div>
             <div>
               <h3>完成后把经验变成下一次的地图</h3>
               <p>生成说明、演示、测验或复盘，让这次暴露出来的未知不再重复消耗下一次协作。</p>
