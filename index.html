@@ -1,0 +1,954 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fable 实地指南：如何找到你的未知</title>
+  <meta name="description" content="基于 Thariq《A Field Guide to Fable: Finding Your Unknowns》整理的中文阅读版。">
+  <style>
+    :root {
+      --ink: #141414;
+      --ink-soft: #4d4a45;
+      --paper: #f7f5ef;
+      --paper-deep: #ece7db;
+      --white: #fffdf8;
+      --line: #d8d0c0;
+      --coral: #d66f52;
+      --coral-deep: #a44d38;
+      --moss: #5d6f51;
+      --blue: #3f6878;
+      --shadow: 0 24px 80px rgba(20, 20, 20, 0.12);
+      --sans: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+      --serif: "Songti SC", "Noto Serif SC", "STSong", Georgia, serif;
+      --mono: "SFMono-Regular", "Cascadia Mono", Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(20, 20, 20, 0.035) 1px, transparent 1px) 0 0 / 56px 56px,
+        linear-gradient(180deg, var(--paper), #fbfaf6 42%, var(--paper));
+      font-family: var(--sans);
+      line-height: 1.75;
+      letter-spacing: 0;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: var(--coral-deep);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.18em;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid rgba(214, 111, 82, 0.42);
+      outline-offset: 4px;
+    }
+
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: minmax(24px, 1fr) minmax(0, 1180px) minmax(24px, 1fr);
+      align-items: end;
+      color: #fffdf8;
+      background: #111;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(17, 17, 17, 0.92) 0%, rgba(17, 17, 17, 0.78) 34%, rgba(17, 17, 17, 0.28) 68%, rgba(17, 17, 17, 0.62) 100%),
+        url("assets/01-cover.jpg") center / cover no-repeat;
+      transform: scale(1.01);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 28vh;
+      background: linear-gradient(0deg, var(--paper), rgba(247, 245, 239, 0));
+    }
+
+    .hero-inner {
+      grid-column: 2;
+      position: relative;
+      z-index: 1;
+      padding: 96px 0 132px;
+      max-width: 860px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      margin: 0 0 22px;
+      color: #f2c2b3;
+      font: 700 13px/1 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 38px;
+      height: 2px;
+      background: var(--coral);
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--serif);
+      letter-spacing: 0;
+      line-height: 1.12;
+    }
+
+    h1 {
+      max-width: 820px;
+      margin: 0;
+      font-size: clamp(44px, 7vw, 104px);
+      font-weight: 900;
+    }
+
+    .subtitle {
+      max-width: 720px;
+      margin: 26px 0 0;
+      color: rgba(255, 253, 248, 0.86);
+      font-size: clamp(18px, 2.1vw, 25px);
+      line-height: 1.65;
+    }
+
+    .byline {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 40px;
+      color: rgba(255, 253, 248, 0.82);
+      font-size: 15px;
+    }
+
+    .byline img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 253, 248, 0.7);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(24px, 1fr) minmax(0, 1120px) minmax(24px, 1fr);
+    }
+
+    .content {
+      grid-column: 2;
+    }
+
+    .summary-band {
+      margin-top: -82px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .summary-panel {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 34px;
+      align-items: stretch;
+      background: var(--white);
+      border: 1px solid rgba(20, 20, 20, 0.08);
+      box-shadow: var(--shadow);
+      padding: clamp(24px, 4vw, 48px);
+    }
+
+    .summary-panel h2 {
+      margin: 0 0 18px;
+      font-size: clamp(30px, 4vw, 54px);
+    }
+
+    .summary-panel p {
+      margin: 0 0 18px;
+      color: var(--ink-soft);
+      font-size: 18px;
+    }
+
+    .principle {
+      display: grid;
+      gap: 16px;
+      align-content: start;
+      padding-left: 30px;
+      border-left: 2px solid var(--coral);
+    }
+
+    .principle div {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .principle strong {
+      display: block;
+      margin-bottom: 6px;
+      font-family: var(--serif);
+      font-size: 24px;
+      line-height: 1.25;
+    }
+
+    section {
+      padding: clamp(56px, 8vw, 104px) 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 720px);
+      gap: clamp(22px, 5vw, 58px);
+      align-items: start;
+      margin-bottom: 36px;
+    }
+
+    .section-kicker {
+      color: var(--coral-deep);
+      font: 800 13px/1.3 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section-head h2 {
+      margin: 0 0 16px;
+      font-size: clamp(32px, 5vw, 64px);
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 18px;
+    }
+
+    .figure-wide {
+      margin: 28px 0 0;
+      overflow: hidden;
+      border: 1px solid rgba(20, 20, 20, 0.1);
+      background: #f4f1ea;
+      box-shadow: 0 18px 54px rgba(20, 20, 20, 0.08);
+    }
+
+    .figure-wide img {
+      width: 100%;
+      height: auto;
+    }
+
+    .caption {
+      margin: 0;
+      padding: 14px 18px;
+      color: #655f55;
+      font-size: 14px;
+      border-top: 1px solid rgba(20, 20, 20, 0.08);
+      background: rgba(255, 253, 248, 0.72);
+    }
+
+    .unknown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .unknown-card {
+      min-height: 245px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 22px;
+      background: var(--white);
+      border: 1px solid var(--line);
+    }
+
+    .unknown-card.dark {
+      color: var(--white);
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .unknown-card .label {
+      margin: 0;
+      font: 800 13px/1.2 var(--mono);
+      color: var(--coral-deep);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .unknown-card.dark .label {
+      color: #f29f85;
+    }
+
+    .unknown-card h3 {
+      margin: 16px 0 8px;
+      font-size: 29px;
+    }
+
+    .unknown-card p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 16px;
+    }
+
+    .unknown-card.dark p {
+      color: rgba(255, 253, 248, 0.72);
+    }
+
+    .symbol {
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      margin-top: 24px;
+      border: 1px solid currentColor;
+      color: var(--blue);
+      font: 800 24px/1 var(--serif);
+    }
+
+    .dark .symbol {
+      color: #f29f85;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: clamp(28px, 5vw, 66px);
+      align-items: start;
+    }
+
+    .article-copy {
+      max-width: 760px;
+      color: var(--ink-soft);
+      font-size: 18px;
+    }
+
+    .article-copy p {
+      margin: 0 0 1.15em;
+    }
+
+    .article-copy strong {
+      color: var(--ink);
+    }
+
+    .pull {
+      margin: 26px 0;
+      padding: 22px 26px;
+      color: var(--ink);
+      background: #fff8ef;
+      border-left: 4px solid var(--coral);
+      font-family: var(--serif);
+      font-size: clamp(22px, 3vw, 34px);
+      line-height: 1.38;
+    }
+
+    .method-strip {
+      background: #181818;
+      color: var(--white);
+    }
+
+    .method-strip .section-kicker {
+      color: #f29f85;
+    }
+
+    .method-strip .section-head p {
+      color: rgba(255, 253, 248, 0.72);
+    }
+
+    .method-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .method {
+      display: grid;
+      grid-template-columns: 128px 1fr;
+      gap: 22px;
+      padding: 24px 0;
+      border-top: 1px solid rgba(255, 253, 248, 0.18);
+    }
+
+    .method:last-child {
+      border-bottom: 1px solid rgba(255, 253, 248, 0.18);
+    }
+
+    .method time {
+      color: #f29f85;
+      font: 800 13px/1.3 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .method h3 {
+      margin: 0 0 10px;
+      font-size: clamp(24px, 3vw, 36px);
+    }
+
+    .method p {
+      margin: 0 0 12px;
+      color: rgba(255, 253, 248, 0.75);
+      font-size: 17px;
+    }
+
+    .prompt {
+      margin-top: 14px;
+      padding: 16px 18px;
+      color: #fbf6ed;
+      background: rgba(255, 253, 248, 0.08);
+      border: 1px solid rgba(255, 253, 248, 0.16);
+      font-size: 15px;
+    }
+
+    .prompt b {
+      color: #f29f85;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .playbook {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .play {
+      padding: 24px;
+      background: var(--white);
+      border: 1px solid var(--line);
+    }
+
+    .play h3 {
+      margin: 0 0 12px;
+      font-size: 27px;
+    }
+
+    .play ul {
+      margin: 0;
+      padding-left: 1.15em;
+      color: var(--ink-soft);
+    }
+
+    .play li + li {
+      margin-top: 8px;
+    }
+
+    .case-band {
+      background: var(--paper-deep);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .case-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: clamp(26px, 5vw, 64px);
+      align-items: center;
+    }
+
+    .case-note {
+      display: grid;
+      gap: 16px;
+    }
+
+    .case-note p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 18px;
+    }
+
+    .steps {
+      counter-reset: step;
+      display: grid;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .step {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 18px;
+      padding: 20px;
+      background: var(--white);
+      border: 1px solid var(--line);
+    }
+
+    .step::before {
+      content: counter(step, decimal-leading-zero);
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      color: var(--white);
+      background: var(--ink);
+      font: 800 14px/1 var(--mono);
+    }
+
+    .step h3 {
+      margin: 0 0 8px;
+      font-size: 25px;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 17px;
+    }
+
+    .takeaway {
+      padding: clamp(32px, 5vw, 56px);
+      color: var(--white);
+      background: var(--ink);
+      box-shadow: var(--shadow);
+    }
+
+    .takeaway h2 {
+      margin: 0 0 18px;
+      font-size: clamp(34px, 5vw, 68px);
+    }
+
+    .takeaway p {
+      max-width: 830px;
+      margin: 0;
+      color: rgba(255, 253, 248, 0.78);
+      font-size: 20px;
+    }
+
+    footer {
+      padding: 46px 0 70px;
+      color: #6c6459;
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 22px;
+      justify-content: space-between;
+      border-top: 1px solid var(--line);
+      padding-top: 24px;
+    }
+
+    .toc {
+      position: sticky;
+      top: 20px;
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+      background: rgba(255, 253, 248, 0.82);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .toc a {
+      color: var(--ink-soft);
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .toc a:hover {
+      color: var(--coral-deep);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        min-height: 84vh;
+      }
+
+      .hero-inner {
+        padding: 72px 0 116px;
+      }
+
+      .summary-panel,
+      .two-col,
+      .case-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .principle {
+        padding-left: 0;
+        border-left: 0;
+        border-top: 2px solid var(--coral);
+      }
+
+      .section-head {
+        grid-template-columns: 1fr;
+      }
+
+      .unknown-grid,
+      .playbook {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .method {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .hero {
+        min-height: 78vh;
+        grid-template-columns: 18px minmax(0, 1fr) 18px;
+      }
+
+      .hero::before {
+        background:
+          linear-gradient(90deg, rgba(17, 17, 17, 0.95), rgba(17, 17, 17, 0.52)),
+          url("assets/01-cover.jpg") center / cover no-repeat;
+      }
+
+      .layout {
+        grid-template-columns: 18px minmax(0, 1fr) 18px;
+      }
+
+      .byline {
+        align-items: flex-start;
+      }
+
+      .summary-band {
+        margin-top: -54px;
+      }
+
+      .summary-panel {
+        padding: 24px;
+      }
+
+      .unknown-grid,
+      .playbook {
+        grid-template-columns: 1fr;
+      }
+
+      .unknown-card {
+        min-height: 210px;
+      }
+
+      .step {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">整理自 Thariq 的 Fable Field Guide</p>
+      <h1>Fable 实地指南：如何找到你的未知</h1>
+      <p class="subtitle">这篇文章的重点不是“写更长的提示词”，而是把 AI 协作中真正会决定质量的东西提前暴露出来：你知道什么、你不知道什么、你以为不用说但其实会影响判断的东西。</p>
+      <div class="byline">
+        <img src="assets/thariq-avatar.jpg" alt="Thariq 头像">
+        <div>
+          <strong>Thariq · @trq212</strong><br>
+          原文发布于 2026-07-03，本文为中文整理版
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="layout summary-band">
+      <div class="content">
+        <div class="summary-panel">
+          <div>
+            <h2>一句话理解</h2>
+            <p>你给模型的提示词、技能、上下文，只是“地图”；真正要完成的工作发生在代码库、现实世界和约束条件里，那才是“疆域”。地图和疆域之间的差距，就是这篇文章说的“未知”。</p>
+            <p>模型越强，它能替你走得越远；也正因为走得更远，没被说明的未知会更频繁地变成模型必须自行判断的岔路口。</p>
+          </div>
+          <div class="principle">
+            <div>
+              <strong>不是所有未知都能在开工前规划完。</strong>
+              <span>有些未知只有实现时才会暴露；有些未知甚至会说明：最初的方案本来就该换。</span>
+            </div>
+            <div>
+              <strong>好的 AI 协作，是持续发现未知的过程。</strong>
+              <span>开工前找盲点，执行中记录偏离，完成后把经验变成下一次的地图。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="map" class="layout">
+      <div class="content two-col">
+        <div>
+          <figure class="figure-wide">
+            <img src="assets/02-map-territory.jpg" alt="地图与疆域之间的差距示意图">
+            <figcaption class="caption">原文配图：左边是你交给模型的地图，右边是真实工作的疆域；中间的落差就是未知。</figcaption>
+          </figure>
+        </div>
+        <div class="article-copy">
+          <div class="section-kicker">01 · Map vs Territory</div>
+          <h2>提示词不是任务本身</h2>
+          <p>我们经常把“我已经写清楚了需求”误认为“模型已经理解了真实任务”。但模型看到的只是你提供的材料：提示词、上下文、已有技能、相关文件、你表达出来的偏好。</p>
+          <p>真正的任务还包括很多没有写进提示词的东西：代码库惯例、团队审美、上线限制、历史包袱、某个产品细节为什么不能改、你看到设计稿时才会意识到的“不对劲”。这些东西没有进入地图，却会决定模型在疆域里怎么走。</p>
+          <p class="pull">AI 协作的质量，常常受限于你能不能把“地图外的东西”尽早找出来。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="unknowns" class="layout">
+      <div class="content">
+        <div class="section-head">
+          <div class="section-kicker">02 · Four Unknowns</div>
+          <div>
+            <h2>把未知分成四类，问题会清楚很多</h2>
+            <p>Thariq 用四象限描述 AI 协作里的未知。对中文用户来说，可以把它理解成：哪些信息已经说清楚，哪些问题自己知道还没想明白，哪些标准只有看见才知道，哪些坑完全没进入视野。</p>
+          </div>
+        </div>
+
+        <figure class="figure-wide">
+          <img src="assets/03-unknowns.jpg" alt="四类未知：已知的已知、已知的未知、未知的已知、未知的未知">
+          <figcaption class="caption">原文配图：四类未知。最危险的通常不是“我知道我不知道”，而是“我根本没想到这里会有问题”。</figcaption>
+        </figure>
+
+        <div class="unknown-grid" aria-label="四类未知">
+          <article class="unknown-card">
+            <div>
+              <p class="label">Known knowns</p>
+              <h3>已知的已知</h3>
+              <p>你已经写进提示词的内容：目标、输入、输出、约束、必须遵守的规则。</p>
+            </div>
+            <div class="symbol">✓</div>
+          </article>
+          <article class="unknown-card">
+            <div>
+              <p class="label">Known unknowns</p>
+              <h3>已知的未知</h3>
+              <p>你知道自己还没想明白的问题：例如接口怎么设计、数据从哪里来、谁来审批。</p>
+            </div>
+            <div class="symbol">?</div>
+          </article>
+          <article class="unknown-card">
+            <div>
+              <p class="label">Unknown knowns</p>
+              <h3>未知的已知</h3>
+              <p>你心里有标准，但没写出来；比如“这个页面看起来要像内部工具，不要像营销页”。</p>
+            </div>
+            <div class="symbol">◎</div>
+          </article>
+          <article class="unknown-card dark">
+            <div>
+              <p class="label">Unknown unknowns</p>
+              <h3>未知的未知</h3>
+              <p>你没意识到会影响任务的坑：技术限制、领域常识、真实流程里的例外情况。</p>
+            </div>
+            <div class="symbol">!</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="help" class="layout">
+      <div class="content two-col">
+        <div class="article-copy">
+          <div class="section-kicker">03 · Help Claude Help You</div>
+          <h2>给模型自由度，但要告诉它你从哪里出发</h2>
+          <p>协作的难点在于分寸：说得太死，模型会机械执行，哪怕执行到一半发现更好的路径；说得太空，模型又会用通用最佳实践替你做选择，而这些选择未必适合你的项目。</p>
+          <p>比较稳的做法，是先交代你的起点：你对问题理解到哪一步、对代码库熟不熟、哪些地方是你拿不准的、哪些标准你自己也只能通过对比来判断。</p>
+          <p>这会把模型从“按命令施工的人”变成“帮你一起发现问题的人”。它可以快速读代码、查资料、试错、复盘；你要做的是把它发现未知的能力纳入工作流。</p>
+        </div>
+        <figure class="figure-wide">
+          <img src="assets/04-help-claude.jpg" alt="通过发现未知让冰山浮出水面">
+          <figcaption class="caption">原文配图：发现未知，就像让水下的冰山露出来。露出来的越多，协作越可控。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="methods" class="method-strip">
+      <div class="layout">
+        <div class="content">
+          <div class="section-head">
+            <div class="section-kicker">04 · Workflow</div>
+            <div>
+              <h2>把“找未知”嵌进三个阶段</h2>
+              <p>原文的做法可以整理成一个简单循环：实施前降低盲区，实施中记录偏离，实施后把经验转成下一次协作的材料。</p>
+            </div>
+          </div>
+
+          <figure class="figure-wide">
+            <img src="assets/05-before-patterns.jpg" alt="实施前、实施中、实施后的方法清单">
+            <figcaption class="caption">原文配图：实施前、实施中、实施后的方法清单。底部那句最关键：这次学到的东西，会成为下次的地图。</figcaption>
+          </figure>
+
+          <div class="method-list">
+            <article class="method">
+              <time>Before</time>
+              <div>
+                <h3>实施前：先做盲点排查</h3>
+                <p>当你进入不熟悉的模块、领域或设计任务时，先让模型帮你找“未知的未知”。不要直接让它开工，先问：我可能没想到什么？我该补充哪些背景？哪些问题会改变方案？</p>
+                <div class="prompt"><b>可用提示</b><br>我准备做这个任务，但对相关模块/领域不熟。请先做一次盲点排查，列出我可能没意识到但会影响方案的未知，并告诉我该如何更好地向你提问。</div>
+              </div>
+            </article>
+            <article class="method">
+              <time>Before</time>
+              <div>
+                <h3>实施前：用头脑风暴和原型处理“看了才知道”</h3>
+                <p>视觉、交互、产品感受这类标准，经常属于“未知的已知”。你可能讲不清楚，但能判断哪个更对。先做几个低成本方向或假数据原型，比直接接入真实系统更便宜。</p>
+                <div class="prompt"><b>可用提示</b><br>先不要接真实后端。请用假数据做一个单文件 HTML 原型，给我 3 到 4 个明显不同的方向，我会基于它们指出想要和不想要的部分。</div>
+              </div>
+            </article>
+            <article class="method">
+              <time>Before</time>
+              <div>
+                <h3>实施前：让模型采访你</h3>
+                <p>头脑风暴之后仍有不确定，就让模型一次只问一个问题，并优先问那些会改变架构、数据模型、用户流程或验收标准的问题。</p>
+                <div class="prompt"><b>可用提示</b><br>请采访我。每次只问一个问题，优先选择那些我的回答会改变方案的问题。问完之后再更新实施计划。</div>
+              </div>
+            </article>
+            <article class="method">
+              <time>Before</time>
+              <div>
+                <h3>实施前：给参考，最好是源代码</h3>
+                <p>如果某个库、页面、组件或工具已经以你想要的方式解决了问题，把参考直接交给模型。截图有帮助，但源代码更好，因为它包含结构、命名、边界和真实实现方式。</p>
+                <div class="prompt"><b>可用提示</b><br>请阅读这个参考目录，提取它的行为语义和关键约束，再在我们当前项目里用相同语义重新实现。不要照搬无关结构。</div>
+              </div>
+            </article>
+            <article class="method">
+              <time>During</time>
+              <div>
+                <h3>实施中：保留 implementation notes</h3>
+                <p>再好的计划也会遇到边界情况。让模型在执行时记录关键决策、偏离计划的原因、保守选择和后续风险。这样下次重开会话或交给别人接手时，不会只剩下一堆 diff。</p>
+                <div class="prompt"><b>可用提示</b><br>请维护一个 implementation-notes.md。如果发现必须偏离计划的边界情况，选择保守方案，把原因写到 Deviations 下，然后继续推进。</div>
+              </div>
+            </article>
+            <article class="method">
+              <time>After</time>
+              <div>
+                <h3>实施后：把原型、规格、说明打包成可传播材料</h3>
+                <p>上线、合并或争取支持时，评审者往往从和你一样的未知出发。把你探索过的问题、做过的取舍、演示材料和风险处理放在一份文档里，可以显著降低沟通成本。</p>
+                <div class="prompt"><b>可用提示</b><br>把原型、规格和实现说明整理成一份可以发到 Slack/评审群里的说明文档。开头先放演示，再解释关键取舍和风险。</div>
+              </div>
+            </article>
+            <article class="method">
+              <time>After</time>
+              <div>
+                <h3>实施后：用测验确认自己真的理解了变更</h3>
+                <p>长会话结束后，模型可能做了比你意识到更多的事。只看 diff 不一定能理解行为变化。让模型给你一份阅读报告和小测验，只有你真正答得出来，才说明这次协作已经进入你的地图。</p>
+                <div class="prompt"><b>可用提示</b><br>请生成一份 HTML 变更报告，说明背景、直觉、关键代码路径、边界情况和风险；最后附上小测验，帮助我确认自己理解后再合并。</div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="case" class="case-band">
+      <div class="layout">
+        <div class="content case-grid">
+          <figure class="figure-wide">
+            <img src="assets/06-after-pitch.jpg" alt="把原型、规格和说明整合成一份文档以获得支持">
+            <figcaption class="caption">原文配图：完成后要把原型、规格、说明收拢到一份文档里，降低评审者理解成本。</figcaption>
+          </figure>
+          <div class="case-note">
+            <div class="section-kicker">05 · Example</div>
+            <h2>Fable 发布视频：一个完整的未知探索过程</h2>
+            <p>Thariq 在文章末尾举了一个例子：Fable 发布视频完全由 Claude Code 剪辑。这个任务对他来说不是熟悉领域，所以他先从确定的部分开始：Claude 能用代码编辑视频、能加字幕。</p>
+            <p>接着，他把不确定点逐个摊开：转录技术是否够准确？能否用 ffmpeg 精准剪掉停顿和语气词？能否用 Remotion 和转录文本生成同步 UI？视频画面偏暗时，什么才算好的调色？</p>
+            <p>这个案例的价值在于，它不是一次性写出完美提示词，而是持续把未知变成可验证的小问题。每回答一个问题，地图就更接近真实疆域。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="checklist" class="layout">
+      <div class="content">
+        <div class="section-head">
+          <div class="section-kicker">06 · Checklist</div>
+          <div>
+            <h2>下一次开工前，可以直接照这个顺序走</h2>
+            <p>如果只带走一份实操清单，可以用下面 6 步。它适合复杂编码任务，也适合产品方案、设计迭代、文档整理和跨团队评审。</p>
+          </div>
+        </div>
+
+        <div class="steps">
+          <article class="step">
+            <div></div>
+            <div>
+              <h3>先说清楚你已经知道什么</h3>
+              <p>目标、约束、必须保留的行为、不要碰的范围、你当前的理解进度。</p>
+            </div>
+          </article>
+          <article class="step">
+            <div></div>
+            <div>
+              <h3>主动暴露你知道自己不知道什么</h3>
+              <p>把拿不准的接口、流程、设计偏好、上线条件列出来，不要假装已经确定。</p>
+            </div>
+          </article>
+          <article class="step">
+            <div></div>
+            <div>
+              <h3>让模型找你没意识到的盲区</h3>
+              <p>请它先做盲点排查，尤其是会改变架构、数据模型、用户体验或验收方式的问题。</p>
+            </div>
+          </article>
+          <article class="step">
+            <div></div>
+            <div>
+              <h3>用原型和参考处理难以言说的标准</h3>
+              <p>看了才知道的东西，先做低成本对比；能给源代码参考时，不要只给截图。</p>
+            </div>
+          </article>
+          <article class="step">
+            <div></div>
+            <div>
+              <h3>执行中记录偏离和原因</h3>
+              <p>遇到计划外边界时，记录“为什么改道、改成什么、剩余风险是什么”。</p>
+            </div>
+          </article>
+          <article class="step">
+            <div></div>
+            <div>
+              <h3>完成后把经验变成下一次的地图</h3>
+              <p>生成说明、演示、测验或复盘，让这次暴露出来的未知不再重复消耗下一次协作。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="layout">
+      <div class="content">
+        <div class="takeaway">
+          <h2>最后的判断</h2>
+          <p>模型越强，越需要你学会管理未知。不是把所有细节都一次性写死，而是在实施前、实施中、实施后持续校准：哪些地方需要模型严格执行，哪些地方允许它发现问题后调整策略，哪些经验必须沉淀为下一次的上下文。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="layout">
+    <div class="content footer-inner">
+      <div>中文整理：基于原文观点重组和改写，非逐句翻译。</div>
+      <div>
+        来源：
+        <a href="https://x.com/trq212/status/2073100352921215386" target="_blank" rel="noopener">Thariq on X</a>
+        ·
+        图片素材来自原文章配图
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
